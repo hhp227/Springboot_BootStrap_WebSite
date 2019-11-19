@@ -1,4 +1,4 @@
-package kr.hong227.springboot;
+package kr.hhp227.springboot;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

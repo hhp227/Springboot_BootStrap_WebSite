@@ -1,4 +1,4 @@
-package kr.hong227.springboot.mapper;
+package kr.hhp227.springboot.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 

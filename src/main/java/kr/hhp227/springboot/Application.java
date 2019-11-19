@@ -1,4 +1,4 @@
-package kr.hong227.springboot;
+package kr.hhp227.springboot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
