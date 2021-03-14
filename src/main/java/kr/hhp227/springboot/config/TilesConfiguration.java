@@ -10,10 +10,10 @@ import org.springframework.web.servlet.view.tiles3.TilesViewResolver;
 
 @Configuration
 public class TilesConfiguration {
-
     @Bean
     public UrlBasedViewResolver urlBasedViewResolver() {
         UrlBasedViewResolver basedViewResolver = new UrlBasedViewResolver();
+
         basedViewResolver.setOrder(2);
         basedViewResolver.setViewClass(JstlView.class);
         basedViewResolver.setPrefix("/WEB-INF/jsp/");
@@ -24,6 +24,7 @@ public class TilesConfiguration {
     @Bean
     public UrlBasedViewResolver viewResolver() {
         UrlBasedViewResolver resolver = new UrlBasedViewResolver();
+
         resolver.setOrder(1);
         resolver.setViewClass(TilesView.class);
         return resolver;
@@ -38,6 +39,7 @@ public class TilesConfiguration {
     @Bean
     public TilesConfigurer tilesConfigurer() {
         TilesConfigurer configurer = new TilesConfigurer();
+
         configurer.setDefinitions(new String[] {"WEB-INF/tiles/tiles.xml"});
         configurer.setCheckRefresh(true);
         return configurer;
