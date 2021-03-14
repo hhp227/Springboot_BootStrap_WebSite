@@ -6,12 +6,12 @@
 
 <address>
     Hong227's blog<br />
-    Redmond, WA 98052-6399<br />
+    191-5, Yeondong-ro, Guro-gu, Seoul, Republic of Korea<br />
     <abbr title="Phone">P:</abbr>
-    425.555.0100
+    010.9611.3353
 </address>
 
 <address>
-    <strong>Support:</strong> <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+    <strong>Support:</strong> <a href="mailto:Hong227@naver.com">Hong227@naver.com</a><br />
+    <strong>Marketing:</strong> <a href="mailto:Hong227@naver.com">Hong227@naver.com</a>
 </address>
