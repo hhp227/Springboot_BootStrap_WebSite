@@ -1,18 +1,30 @@
 package kr.hhp227.springboot.controller;
 
+import kr.hhp227.springboot.domain.User;
 import kr.hhp227.springboot.mapper.HomeMapper;
+import kr.hhp227.springboot.service.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 @Controller
 public class HomeController {
     @Autowired
     HomeMapper homeMapper;
+
+    @Autowired
+    UserService userService;
 
     @RequestMapping("/")
     public String home(ModelMap modelMap) {
@@ -58,6 +70,32 @@ public class HomeController {
 
         viewBag.put("Title", "등록");
         modelMap.addAttribute("ViewBag", viewBag);
+
+        // 임시 코드
+        User user = new User();
+        user.setUsername("test");
+        user.setPassword("test123");
+        user.setAccountNonExpired(true);
+        user.setAccountNonLocked(true);
+        user.setCredentialsNonExpired(true);
+        user.setEnabled(true);
+        user.setAuthorities(AuthorityUtils.createAuthorityList("USER"));
+
+        userService.removeUser(user.getUsername());
+        userService.addUser(user);
+        User user1 = userService.getUser(user.getUsername());
+        System.out.println(user1.getUsername());
+
+        PasswordEncoder passwordEncoder = userService.passwordEncoder();
+        System.out.println(passwordEncoder.matches("test123", user1.getPassword()));
+
+        Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
+        Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
+        Collection<GrantedAuthority> authorities1 = (Collection<GrantedAuthority>) user1.getAuthorities();
+        while (iterator.hasNext()) {
+            GrantedAuthority authority = iterator.next();
+            System.out.println(authorities1 + "" + new SimpleGrantedAuthority((authority.getAuthority())));
+        }
         return "register";
     }
 }

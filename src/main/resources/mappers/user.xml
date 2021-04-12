@@ -5,7 +5,28 @@
         select * from users where username = #{username}
     </select>
 
-    <select id="getAuthority" parameterType="String" resultType="String">
+    <select id="getAuthority" parameterType="String" resultType="org.springframework.security.core.authority.SimpleGrantedAuthority">
         SELECT authority_name FROM authority WHERE username = #{username}
     </select>
+
+    <insert id="addUser" parameterType="kr.hhp227.springboot.domain.User">
+        INSERT INTO users (username, password, isAccountNonExpired, isAccountNonLocked, isCredentialsNonExpired, isEnabled)
+        VALUES (#{username}, #{password}, #{isAccountNonExpired}, #{isAccountNonLocked}, #{isCredentialsNonExpired}, #{isEnabled})
+    </insert>
+
+    <insert id="addAuthority" parameterType="org.springframework.security.core.GrantedAuthority">
+        INSERT INTO authority (username, authority_name)
+        VALUES
+        <foreach item="authority" index="index" collection="authorities" separator=",">
+            (#{username}, #{authority.role})
+        </foreach>
+    </insert>
+
+    <delete id="removeUser" parameterType="String">
+        DELETE FROM users WHERE username = #{username}
+    </delete>
+
+    <delete id="removeAuthority" parameterType="String">
+        DELETE FROM authority WHERE username = #{username}
+    </delete>
 </mapper>

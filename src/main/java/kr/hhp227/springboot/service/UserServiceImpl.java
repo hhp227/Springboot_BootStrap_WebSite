@@ -8,6 +8,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,12 +18,11 @@ import java.util.Collection;
 import java.util.List;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -33,12 +34,35 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     public Collection<GrantedAuthority> getAuthorities(String username) {
-        List<String> string_authorities = userMapper.getAuthority(username);
-        List<GrantedAuthority> authorities = new ArrayList<>();
+        return userMapper.getAuthority(username);
+    }
 
-        for (String authority : string_authorities) {
-            authorities.add(new SimpleGrantedAuthority(authority));
-        }
-        return authorities;
+    @Override
+    public User getUser(String username) {
+        User user = userMapper.getUser(username);
+
+        user.setAuthorities(userMapper.getAuthority(username));
+        return user;
+    }
+
+    @Override
+    public void addUser(User user) {
+        String password = user.getPassword();
+        String encodedPassword = passwordEncoder.encode(password);
+
+        user.setPassword(encodedPassword);
+        userMapper.addUser(user);
+        userMapper.addAuthority(user);
+    }
+
+    @Override
+    public void removeUser(String username) {
+        userMapper.removeUser(username);
+        userMapper.removeAuthority(username);
+    }
+
+    @Override
+    public PasswordEncoder passwordEncoder() {
+        return passwordEncoder;
     }
 }
