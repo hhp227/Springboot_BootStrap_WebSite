@@ -22,14 +22,14 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
 
-    private final PasswordEncoder passwordEncoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userMapper.getUser(username);
 
         user.setAuthorities(getAuthorities(username));
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return user;
     }
 
@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public PasswordEncoder passwordEncoder() {
+    public PasswordEncoder getPasswordEncoder() {
         return passwordEncoder;
     }
 }

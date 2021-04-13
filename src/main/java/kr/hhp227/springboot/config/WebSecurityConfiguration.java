@@ -20,10 +20,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Autowired
     UserService userService;
 
-    /*@Bean
+    @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }*/
+    }
 
     /*@Override
     public void configure(WebSecurity web) {
@@ -41,7 +41,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.userDetailsService(userService).passwordEncoder(userService.passwordEncoder());
+        auth.userDetailsService(userService).passwordEncoder(userService.getPasswordEncoder());
     }
 
     /*@Override

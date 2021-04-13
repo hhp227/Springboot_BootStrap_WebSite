@@ -86,7 +86,7 @@ public class HomeController {
         User user1 = userService.getUser(user.getUsername());
         System.out.println(user1.getUsername());
 
-        PasswordEncoder passwordEncoder = userService.passwordEncoder();
+        PasswordEncoder passwordEncoder = userService.getPasswordEncoder();
         System.out.println(passwordEncoder.matches("test123", user1.getPassword()));
 
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();

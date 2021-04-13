@@ -17,5 +17,5 @@ public interface UserService extends UserDetailsService {
 
     void removeUser(String username);
 
-    PasswordEncoder passwordEncoder();
+    PasswordEncoder getPasswordEncoder();
 }
