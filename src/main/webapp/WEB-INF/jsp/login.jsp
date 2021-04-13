@@ -12,21 +12,21 @@
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="UserName">사용자 이름</label>
                     <div class="col-md-10">
-                        <input class="form-control" data-val="true" data-val-required="사용자 이름 필드가 필요합니다." id="UserName" name="UserName" type="text" value="" />
+                        <input class="form-control" data-val="true" data-val-required="사용자 이름 필드가 필요합니다." id="UserName" name="username" type="text" value="" />
                         <span class="field-validation-valid" data-valmsg-for="UserName" data-valmsg-replace="true"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="Password">암호</label>
                     <div class="col-md-10">
-                        <input class="form-control" data-val="true" data-val-required="암호 필드가 필요합니다." id="Password" name="Password" type="password" />
+                        <input class="form-control" data-val="true" data-val-required="암호 필드가 필요합니다." id="Password" name="password" type="password" />
                         <span class="field-validation-valid" data-valmsg-for="Password" data-valmsg-replace="true"></span>
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <div class="checkbox">
-                            <input data-val="true" data-val-required="사용자 이름 및 암호 저장 필드가 필요합니다." id="RememberMe" name="RememberMe" type="checkbox" value="true" />
+                            <input data-val="true" data-val-required="사용자 이름 및 암호 저장 필드가 필요합니다." id="RememberMe" name="rememberMe" type="checkbox" value="true" />
                             <input name="RememberMe" type="hidden" value="false" />
                             <label for="RememberMe">사용자 이름 및 암호 저장</label>
                         </div>
