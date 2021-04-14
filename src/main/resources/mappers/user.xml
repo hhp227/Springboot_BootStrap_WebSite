@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="kr.hhp227.springboot.mapper.UserMapper">
     <select id="getUser" parameterType="String" resultType="kr.hhp227.springboot.domain.User">
-        select * from users where username = #{username}
+        SELECT * FROM users WHERE username = #{username}
     </select>
 
     <select id="getAuthority" parameterType="String" resultType="org.springframework.security.core.authority.SimpleGrantedAuthority">

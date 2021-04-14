@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Collection;
@@ -70,11 +71,14 @@ public class HomeController {
 
         viewBag.put("Title", "등록");
         modelMap.addAttribute("ViewBag", viewBag);
+        return "register";
+    }
 
-        // 임시 코드
+    @RequestMapping("RegisterProcess")
+    public String registerProcess(String username, String password) {
         User user = new User();
-        user.setUsername("test");
-        user.setPassword("test123");
+        user.setUsername(username);
+        user.setPassword(password);
         user.setAccountNonExpired(true);
         user.setAccountNonLocked(true);
         user.setCredentialsNonExpired(true);
@@ -82,12 +86,12 @@ public class HomeController {
         user.setAuthorities(AuthorityUtils.createAuthorityList("USER"));
 
         userService.removeUser(user.getUsername());
-        userService.addUser(user);
+        userService.register(user);
         User user1 = userService.getUser(user.getUsername());
         System.out.println(user1.getUsername());
 
         PasswordEncoder passwordEncoder = userService.getPasswordEncoder();
-        System.out.println(passwordEncoder.matches("test123", user1.getPassword()));
+        System.out.println(passwordEncoder.matches(password, user1.getPassword()));
 
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
         Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
@@ -96,6 +100,7 @@ public class HomeController {
             GrantedAuthority authority = iterator.next();
             System.out.println(authorities1 + "" + new SimpleGrantedAuthority((authority.getAuthority())));
         }
-        return "register";
+        System.out.println("registerProcess");
+        return "redirect:/";
     }
 }

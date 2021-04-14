@@ -61,11 +61,11 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         .invalidateHttpSession(true);
     }*/
 
-    /*@Autowired
+    @Autowired
     public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
         authenticationManagerBuilder.inMemoryAuthentication().withUser("Admin").password(passwordEncoder().encode("AdminTest")).roles("ADMIN");
         authenticationManagerBuilder.inMemoryAuthentication().withUser("Hong227").password(passwordEncoder().encode("ghdgmlvy227")).roles("USER");
-    }*/
+    }
 
     /*@Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
