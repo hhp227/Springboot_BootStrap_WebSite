@@ -30,12 +30,8 @@ public class UserServiceImpl implements UserService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userMapper.getUser(username);
 
-        user.setAuthorities(getAuthorities(username));
+        user.setAuthorities(userMapper.getAuthority(username));
         return user;
-    }
-
-    public Collection<GrantedAuthority> getAuthorities(String username) {
-        return userMapper.getAuthority(username);
     }
 
     @Override
@@ -48,7 +44,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void register(User user) {
+    @Transactional
+    public void registerUser(User user) {
         String password = user.getPassword();
         String encodedPassword = passwordEncoder.encode(password);
 

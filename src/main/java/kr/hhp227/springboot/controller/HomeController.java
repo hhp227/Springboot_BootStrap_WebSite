@@ -11,7 +11,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Collection;
@@ -86,7 +85,7 @@ public class HomeController {
         user.setAuthorities(AuthorityUtils.createAuthorityList("USER"));
 
         userService.removeUser(user.getUsername());
-        userService.register(user);
+        userService.registerUser(user);
         User user1 = userService.getUser(user.getUsername());
         System.out.println(user1.getUsername());
 

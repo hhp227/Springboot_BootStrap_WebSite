@@ -10,11 +10,9 @@ import java.util.Collection;
 import kr.hhp227.springboot.domain.User;
 
 public interface UserService extends UserDetailsService {
-    Collection<GrantedAuthority> getAuthorities(String username);
-
     User getUser(String username);
 
-    void register(User user);
+    void registerUser(User user);
 
     void removeUser(String username);
 
