@@ -46,12 +46,15 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void registerUser(User user) {
+        String username = user.getUsername();
         String password = user.getPassword();
         String encodedPassword = passwordEncoder.encode(password);
 
-        user.setPassword(encodedPassword);
-        userMapper.addUser(user);
-        userMapper.addAuthority(user);
+        if (!username.isEmpty() && !password.isEmpty()) {
+            user.setPassword(encodedPassword);
+            userMapper.addUser(user);
+            userMapper.addAuthority(user);
+        }
     }
 
     @Override

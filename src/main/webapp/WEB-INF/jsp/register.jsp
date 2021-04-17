@@ -3,7 +3,7 @@
 
 <h2>${ViewBag.Title}.</h2>
 
-<form action="Register" class="form-horizontal" method="post" role="form">
+<form action="RegisterProcess" class="form-horizontal" method="post" role="form">
     <input name="__RequestVerificationToken" type="hidden" value="yWAZvXaFcp4rTbs02dPxUO7HAN_UkRC1lk5lf4YHLfOxhLAEpU84WXRenpDrQgV826S55n-aPC0aOqNkebg2jFHHArbeua09_rYCmU2dfCE1" />
     <h4>새 계정을 만드십시오.</h4>
     <hr />
