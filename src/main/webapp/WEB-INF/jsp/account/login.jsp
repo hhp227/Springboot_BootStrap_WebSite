@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <h2>${ViewBag.Title}.</h2>
 <div class="row">
@@ -60,3 +61,5 @@
         </section>
     </div>
 </div>
+<script src="<c:url value="/webjars/jquery/3.3.1/jquery.js"/>"></script>
+<script src="<c:url value="/webjars/jquery-validation/1.19.3/jquery.validate.min.js"/>"></script>
