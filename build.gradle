@@ -24,6 +24,7 @@ repositories {
 dependencies {
     implementation "org.springframework.boot:spring-boot-starter-web"
     implementation "org.springframework.boot:spring-boot-starter-security"
+    implementation "org.springframework.security:spring-security-taglibs"
     implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:$mybatis_spring_boot_starter_version"
     implementation "org.postgresql:postgresql:$postgresql_version"
     implementation "org.apache.tomcat.embed:tomcat-embed-jasper"

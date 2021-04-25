@@ -65,7 +65,7 @@ public class AccountController {
 
     // 임시 로그아웃
     // post요청에 csrf보내야함?
-    @RequestMapping("/Logout")
+    @RequestMapping("/Account/LogOff")
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
         return "redirect:/";

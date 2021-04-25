@@ -10,6 +10,14 @@
                 <input name="__RequestVerificationToken" type="hidden" value="fh29DgjdAkHbgTiYnIP0dkwJZlwyBvmTgiAoCEcoGOn5IUJdLNTltSxGXS4xyI4FHagJDLqKh6uXO78jewq3PO8-9BpAtDMnt1vvvtFAn_k1" />
                 <h4>로컬 계정을 사용하여 로그인하십시오.</h4>
                 <hr />
+                <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION}">
+                    <div class="validation-summary-errors text-danger">
+                        <ul>
+                            <li>Invalid login attempt.</li>
+                        </ul>
+                    </div>
+                    <c:remove var="SPRING_SECURITY_LAST_EXCEPTION" scope="session" />
+                </c:if>
                 <div class="form-group">
                     <label class="col-md-2 control-label" for="UserName">사용자 이름</label>
                     <div class="col-md-10">
@@ -41,6 +49,7 @@
                 <p>
                     로컬 계정이 없는 경우 <a href="Register">등록</a>.
                 </p>
+                <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
             </form>
         </section>
     </div>
