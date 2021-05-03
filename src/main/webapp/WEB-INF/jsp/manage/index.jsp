@@ -1,12 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-</head>
-<body>
 
-</body>
-</html>
+<h2>${ViewBag.Title}</h2>
+
+<p class="text-success">${ViewBag.StatusMessage}</p>
 
 <!--
 @model WebApplication1.Models.IndexViewModel
