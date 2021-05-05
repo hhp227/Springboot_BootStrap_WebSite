@@ -60,7 +60,7 @@ public class AccountController {
             System.out.println(authorities1 + "" + new SimpleGrantedAuthority((authority.getAuthority())));
         }
         System.out.println("registerProcess");*/
-        return "account/login";
+        return "redirect:/";
     }
 
     // 임시 로그아웃
