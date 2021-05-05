@@ -26,8 +26,8 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a href="/springboot/">홈</a></li>
-                <li><a href="About">정보</a></li>
-                <li><a href="Contact">연락처</a></li>
+                <li><a href="/springboot/About">정보</a></li>
+                <li><a href="/springboot/Contact">연락처</a></li>
             </ul>
             <%@include file="../include/_LoginPartial.jsp"%>
         </div>

@@ -1,5 +1,6 @@
 package kr.hhp227.springboot.controller;
 
+import org.graalvm.compiler.hotspot.replacements.HubGetClassNode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,8 +15,27 @@ public class ManageController {
         Map<String, String> viewBag = new HashMap<>();
 
         viewBag.put("Title", "Manage");
-        viewBag.put("StatusMessage", "Temp");
         modelMap.addAttribute("ViewBag", viewBag);
         return "manage/index";
+    }
+
+    @RequestMapping("Manage/ChangePassword")
+    public String changePassword(ModelMap modelMap) {
+        Map<String, String> viewBag = new HashMap<>();
+
+        viewBag.put("Title", "Change Password");
+        modelMap.addAttribute("ViewBag", viewBag);
+        return "manage/changePassword";
+    }
+
+
+    @RequestMapping("Manage/ManageLogins")
+    public String manageLogins(ModelMap modelMap) {
+        Map<String, String> viewBag = new HashMap<>();
+
+        viewBag.put("Title", "Manage your external logins");
+        viewBag.put("StatusMessage", "");
+        modelMap.addAttribute("ViewBag", viewBag);
+        return "manage/manageLogins";
     }
 }
