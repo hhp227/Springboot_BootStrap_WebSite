@@ -29,6 +29,12 @@ public class AccountController {
         return "account/login";
     }
 
+    @RequestMapping("LoginProcess")
+    public String loginProcess(User user) {
+        System.out.println("user: " + user + ", name: " + user.getUsername());
+        return "redirect:/";
+    }
+
     @RequestMapping("Register")
     public String register(ModelMap modelMap) {
         Map<String, String> viewBag = new HashMap<>();

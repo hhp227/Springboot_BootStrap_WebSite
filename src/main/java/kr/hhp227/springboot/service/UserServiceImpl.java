@@ -51,6 +51,8 @@ public class UserServiceImpl implements UserService {
         String encodedPassword = passwordEncoder.encode(password);
 
         if (!username.isEmpty() && !password.isEmpty()) {
+            if (userMapper.getUser(username) != null)
+                return;
             user.setPassword(encodedPassword);
             userMapper.addUser(user);
             userMapper.addAuthority(user);
