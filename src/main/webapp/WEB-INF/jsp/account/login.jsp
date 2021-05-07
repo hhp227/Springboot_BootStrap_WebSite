@@ -6,7 +6,7 @@
 <div class="row">
     <div class="col-md-8">
         <section id="loginForm">
-            <form action="Login" class="form-horizontal" method="post" role="form">
+            <form action="LoginProcess" class="form-horizontal" method="post" role="form">
                 <input name="__RequestVerificationToken" type="hidden" value="fh29DgjdAkHbgTiYnIP0dkwJZlwyBvmTgiAoCEcoGOn5IUJdLNTltSxGXS4xyI4FHagJDLqKh6uXO78jewq3PO8-9BpAtDMnt1vvvtFAn_k1" />
                 <h4>로컬 계정을 사용하여 로그인하십시오.</h4>
                 <hr />

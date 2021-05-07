@@ -37,7 +37,7 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/", "/Register", "/RegisterProcess", "/About", "/Contact").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .formLogin().loginPage("/Login").permitAll()
+                .formLogin().loginPage("/Login").loginProcessingUrl("/LoginProcess").permitAll()
                 .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/Logout")).logoutSuccessUrl("/").invalidateHttpSession(true);
     }
