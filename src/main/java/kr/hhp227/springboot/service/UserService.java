@@ -10,8 +10,6 @@ import java.util.Collection;
 import kr.hhp227.springboot.domain.User;
 
 public interface UserService extends UserDetailsService {
-    User getUser(String username);
-
     void registerUser(User user);
 
     void removeUser(String username);

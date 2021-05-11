@@ -18,16 +18,8 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userMapper.getUser(username);
-
-        user.setAuthorities(userMapper.getAuthority(username));
-        return user;
-    }
-
-    @Override
     @Transactional(readOnly = true)
-    public User getUser(String username) {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userMapper.getUser(username);
 
         user.setAuthorities(userMapper.getAuthority(username));
