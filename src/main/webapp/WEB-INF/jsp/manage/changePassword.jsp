@@ -1,7 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <h2>${ViewBag.Title}.</h2>
-
+<form action="ChangePassword" class="form-horizontal" method="post" role="form">
+</form>
 <!--
 
 @using (Html.BeginForm("ChangePassword", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
