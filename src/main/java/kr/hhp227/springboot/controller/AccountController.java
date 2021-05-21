@@ -58,8 +58,7 @@ public class AccountController {
         while (iterator.hasNext()) {
             GrantedAuthority authority = iterator.next();
             System.out.println(authorities1 + "" + new SimpleGrantedAuthority((authority.getAuthority())));
-        }
-        System.out.println("registerProcess");*/
+        }*/
         return "redirect:/";
     }
 
