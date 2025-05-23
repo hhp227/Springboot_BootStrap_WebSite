@@ -1,7 +1,6 @@
 package kr.hhp227.springboot.config;
 
 import kr.hhp227.springboot.service.UserService;
-import kr.hhp227.springboot.service.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -10,7 +9,6 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
@@ -32,7 +30,9 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http
+                .csrf()
+                .disable()
                 .authorizeRequests()
                 .antMatchers("/", "/Register", "/RegisterProcess", "/About", "/Contact").permitAll()
                 .anyRequest().authenticated()
@@ -49,6 +49,10 @@ public class WebSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder.inMemoryAuthentication().withUser("Admin").password(passwordEncoder().encode("AdminTest")).roles("ADMIN");
+        authenticationManagerBuilder
+                .inMemoryAuthentication()
+                .withUser("Admin")
+                .password(passwordEncoder().encode("AdminTest"))
+                .roles("ADMIN");
     }
 }

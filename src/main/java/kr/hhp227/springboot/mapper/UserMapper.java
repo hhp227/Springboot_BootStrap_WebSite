@@ -1,12 +1,9 @@
 package kr.hhp227.springboot.mapper;
 
-import kr.hhp227.springboot.domain.User;
-import org.apache.ibatis.annotations.Insert;
+import kr.hhp227.springboot.model.User;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.security.core.GrantedAuthority;
 
-import java.util.Collection;
 import java.util.List;
 
 @Mapper

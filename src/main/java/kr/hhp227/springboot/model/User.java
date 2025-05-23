@@ -1,4 +1,4 @@
-package kr.hhp227.springboot.domain;
+package kr.hhp227.springboot.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -7,11 +7,17 @@ import java.util.Collection;
 
 public class User implements UserDetails {
     private Collection<? extends GrantedAuthority> authorities;
+
     private String username;
+
     private String password;
+
     private boolean isAccountNonExpired;
+
     private boolean isAccountNonLocked;
+
     private boolean isCredentialsNonExpired;
+
     private boolean isEnabled;
 
     @Override

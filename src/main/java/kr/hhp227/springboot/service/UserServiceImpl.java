@@ -1,6 +1,6 @@
 package kr.hhp227.springboot.service;
 
-import kr.hhp227.springboot.domain.User;
+import kr.hhp227.springboot.model.User;
 import kr.hhp227.springboot.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
