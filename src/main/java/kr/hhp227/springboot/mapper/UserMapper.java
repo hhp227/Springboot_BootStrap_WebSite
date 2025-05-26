@@ -15,6 +15,8 @@ public interface UserMapper {
     //@Insert("Insert into users values (#{account.username},#{account.password},#{account.isAccountNonExpired},#{account.isAccountNonLocked},#{account.isCredentialsNonExpired},#{account.isEnabled})")
     void addUser(/*@Param("account") */User user);
 
+    void setUser(User user);
+
     void addAuthority(User user);
 
     void removeUser(String username);

@@ -2,9 +2,7 @@
 
 <h2>${ViewBag.Title}.</h2>
 
-<form action="ChangePassword" class="form-horizontal" method="post" role="form">
-</form>
-<form action="/Manage/ChangePassword" class="form-horizontal" method="post" role="form">
+<form action="ChangePasswordProcess" class="form-horizontal" method="post" role="form">
 
     <!-- CSRF 토큰 예시 (Spring Security 사용 시) -->
     <!--
@@ -20,19 +18,19 @@
     <div class="form-group">
         <label class="col-md-2 control-label" for="OldPassword">Current password</label>
         <div class="col-md-10">
-            <input class="form-control" data-val="true" data-val-required="Current password 필드가 필요합니다." id="OldPassword" name="OldPassword" type="password">
+            <input class="form-control" data-val="true" data-val-required="Current password 필드가 필요합니다." id="OldPassword" name="oldPassword" type="password">
         </div>
     </div>
     <div class="form-group">
         <label class="col-md-2 control-label" for="NewPassword">New password</label>
         <div class="col-md-10">
-            <input class="form-control" data-val="true" data-val-length="The New password must be at least 6 characters long." data-val-length-max="100" data-val-length-min="6" data-val-required="New password 필드가 필요합니다." id="NewPassword" name="NewPassword" type="password">
+            <input class="form-control" data-val="true" data-val-length="The New password must be at least 6 characters long." data-val-length-max="100" data-val-length-min="6" data-val-required="New password 필드가 필요합니다." id="NewPassword" name="newPassword" type="password">
         </div>
     </div>
     <div class="form-group">
         <label class="col-md-2 control-label" for="ConfirmPassword">Confirm new password</label>
         <div class="col-md-10">
-            <input class="form-control" data-val="true" data-val-equalto="The new password and confirmation password do not match." data-val-equalto-other="*.NewPassword" id="ConfirmPassword" name="ConfirmPassword" type="password">
+            <input class="form-control" data-val="true" data-val-equalto="The new password and confirmation password do not match." data-val-equalto-other="*.NewPassword" id="ConfirmPassword" name="confirmPassword" type="password">
         </div>
     </div>
     <div class="form-group">

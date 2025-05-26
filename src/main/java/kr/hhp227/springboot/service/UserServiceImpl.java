@@ -43,6 +43,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void changePassword(String username, String oldPassword, String newPassword) {
+        User user = userMapper.getUser(username);
+
+        if (passwordEncoder.matches(oldPassword, user.getPassword())) {
+            String encodedNewPassword = passwordEncoder.encode(newPassword);
+
+            user.setPassword(encodedNewPassword);
+            userMapper.setUser(user);
+        }
+    }
+
+    @Override
     public void removeUser(String username) {
         userMapper.removeUser(username);
         userMapper.removeAuthority(username);
