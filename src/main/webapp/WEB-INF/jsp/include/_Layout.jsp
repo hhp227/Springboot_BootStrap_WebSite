@@ -21,13 +21,13 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/springboot/">응용 프로그램 이름</a>
+            <a class="navbar-brand" href="${pageContext.request.contextPath}/">응용 프로그램 이름</a>
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li><a href="/springboot/">홈</a></li>
-                <li><a href="/springboot/About">정보</a></li>
-                <li><a href="/springboot/Contact">연락처</a></li>
+                <li><a href="${pageContext.request.contextPath}/">홈</a></li>
+                <li><a href="${pageContext.request.contextPath}/About">정보</a></li>
+                <li><a href="${pageContext.request.contextPath}/Contact">연락처</a></li>
             </ul>
             <%@include file="../include/_LoginPartial.jsp"%>
         </div>

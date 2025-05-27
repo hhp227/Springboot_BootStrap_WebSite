@@ -1,8 +1,11 @@
 package kr.hhp227.springboot.service;
 
+import com.sun.net.httpserver.Authenticator;
 import kr.hhp227.springboot.model.User;
 import kr.hhp227.springboot.mapper.UserMapper;
+import org.apache.ibatis.annotations.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -43,7 +46,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void changePassword(String username, String oldPassword, String newPassword) {
+    public boolean changePassword(String username, String oldPassword, String newPassword) {
         User user = userMapper.getUser(username);
 
         if (passwordEncoder.matches(oldPassword, user.getPassword())) {
@@ -51,7 +54,9 @@ public class UserServiceImpl implements UserService {
 
             user.setPassword(encodedNewPassword);
             userMapper.setUser(user);
+            return true;
         }
+        return false;
     }
 
     @Override
