@@ -52,16 +52,21 @@ public class ManageController {
             @ModelAttribute("ChangePasswordViewModel")
             ChangePasswordViewModel model,
             BindingResult bindingResult,
-            Principal principal
+            Principal principal,
+            ModelMap modelMap
     ) {
         System.out.println("changePasswordProcess" + ", " + model.toString());
         User user = (User) userService.loadUserByUsername(principal.getName());
-
 
         if (!model.getNewPassword().equals(model.getConfirmPassword())) {
             bindingResult.rejectValue("confirmPassword", "", "새 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
         }
         if (bindingResult.hasErrors()) {
+            Map<String, Object> viewBag = new HashMap<>();
+
+            viewBag.put("Title", "Change Password");
+            modelMap.addAttribute("ViewBag", viewBag);
+            modelMap.addAttribute("ChangePasswordViewModel", model);
             return "manage/changePassword";
         }
         /*if (user != null) {
@@ -71,7 +76,7 @@ public class ManageController {
                 return "redirect:/Manage?Message=ChangePasswordSuccess";
             }
         }*/
-        return "manage/changePassword";
+        return "manage/changePasswordTemp1";
     }
 
     @RequestMapping("ManageLogins")
