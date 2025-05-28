@@ -1,11 +1,14 @@
 package kr.hhp227.springboot.controller;
 
+import kr.hhp227.springboot.model.ChangePasswordViewModel;
 import kr.hhp227.springboot.model.IndexViewModel;
 import kr.hhp227.springboot.model.User;
 import kr.hhp227.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -15,11 +18,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Controller
+@RequestMapping("Manage")
 public class ManageController {
     @Autowired
     UserService userService;
 
-    @RequestMapping("Manage")
+    @RequestMapping("")
     public String manage(ModelMap modelMap) {
         Map<String, String> viewBag = new HashMap<>();
         IndexViewModel viewModel = new IndexViewModel();
@@ -32,35 +36,45 @@ public class ManageController {
         return "manage/index";
     }
 
-    @RequestMapping("Manage/ChangePassword")
+    @RequestMapping("ChangePassword")
     public String changePassword(ModelMap modelMap) {
-        Map<String, String> viewBag = new HashMap<>();
+        Map<String, Object> viewBag = new HashMap<>();
 
         viewBag.put("Title", "Change Password");
         modelMap.addAttribute("ViewBag", viewBag);
+        modelMap.addAttribute("ChangePasswordViewModel", new ChangePasswordViewModel());
         return "manage/changePassword";
     }
 
-    @RequestMapping("Manage/ChangePasswordProcess")
+    @RequestMapping("ChangePasswordProcess")
     public String changePasswordProcess(
-            @RequestParam @Valid String oldPassword,
-            @RequestParam @Valid String newPassword,
-            @RequestParam @Valid String confirmPassword,
+            @Valid
+            @ModelAttribute("ChangePasswordViewModel")
+            ChangePasswordViewModel model,
+            BindingResult bindingResult,
             Principal principal
     ) {
+        System.out.println("changePasswordProcess" + ", " + model.toString());
         User user = (User) userService.loadUserByUsername(principal.getName());
 
-        if (user != null) {
-            boolean isSuccess = userService.changePassword(user.getUsername(), oldPassword, newPassword);
+
+        if (!model.getNewPassword().equals(model.getConfirmPassword())) {
+            bindingResult.rejectValue("confirmPassword", "", "새 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+        }
+        if (bindingResult.hasErrors()) {
+            return "manage/changePassword";
+        }
+        /*if (user != null) {
+            boolean isSuccess = userService.changePassword(user.getUsername(), form.getOldPassword(), newPassword);
 
             if (isSuccess) {
                 return "redirect:/Manage?Message=ChangePasswordSuccess";
             }
-        }
+        }*/
         return "manage/changePassword";
     }
 
-    @RequestMapping("Manage/ManageLogins")
+    @RequestMapping("ManageLogins")
     public String manageLogins(ModelMap modelMap) {
         Map<String, String> viewBag = new HashMap<>();
 
