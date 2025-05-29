@@ -25,21 +25,26 @@ public class ManageController {
 
     @RequestMapping("")
     public String manage(
-            @RequestParam("Message") String message,
+            @RequestParam(value = "Message", required = false)
+            String message,
             ModelMap modelMap
     ) {
         Map<String, String> viewBag = new HashMap<>();
-        String statusMessage = message.equals("ChangePasswordSuccess") ? "Your password has been changed."
-                : message.equals("SetPasswordSuccess") ? "Your password has been set."
-                : message.equals("SetTwoFactorSuccess") ? "Your two-factor authentication provider has been set."
-                : message.equals("Error") ? "An error has occurred."
-                : message.equals("AddPhoneSuccess") ? "Your phone number was added."
-                : message.equals("RemovePhoneSuccess") ? "Your phone number was removed."
-                : "";
+        String statusMessage;
         IndexViewModel model = new IndexViewModel();
 
         viewBag.put("Title", "Manage");
-        viewBag.put("StatusMessage", statusMessage);
+        if (message != null) {
+            statusMessage = message.equals("ChangePasswordSuccess") ? "Your password has been changed."
+                    : message.equals("SetPasswordSuccess") ? "Your password has been set."
+                    : message.equals("SetTwoFactorSuccess") ? "Your two-factor authentication provider has been set."
+                    : message.equals("Error") ? "An error has occurred."
+                    : message.equals("AddPhoneSuccess") ? "Your phone number was added."
+                    : message.equals("RemovePhoneSuccess") ? "Your phone number was removed."
+                    : "";
+
+            viewBag.put("StatusMessage", statusMessage);
+        }
         model.setHasPassword(true);
         model.setTwoFactor(false);
         modelMap.addAttribute("ViewBag", viewBag);
