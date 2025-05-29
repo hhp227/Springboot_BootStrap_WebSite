@@ -24,15 +24,26 @@ public class ManageController {
     UserService userService;
 
     @RequestMapping("")
-    public String manage(ModelMap modelMap) {
+    public String manage(
+            @RequestParam("Message") String message,
+            ModelMap modelMap
+    ) {
         Map<String, String> viewBag = new HashMap<>();
-        IndexViewModel viewModel = new IndexViewModel();
+        String statusMessage = message.equals("ChangePasswordSuccess") ? "Your password has been changed."
+                : message.equals("SetPasswordSuccess") ? "Your password has been set."
+                : message.equals("SetTwoFactorSuccess") ? "Your two-factor authentication provider has been set."
+                : message.equals("Error") ? "An error has occurred."
+                : message.equals("AddPhoneSuccess") ? "Your phone number was added."
+                : message.equals("RemovePhoneSuccess") ? "Your phone number was removed."
+                : "";
+        IndexViewModel model = new IndexViewModel();
 
         viewBag.put("Title", "Manage");
-        viewModel.setHasPassword(true);
-        viewModel.setTwoFactor(false);
+        viewBag.put("StatusMessage", statusMessage);
+        model.setHasPassword(true);
+        model.setTwoFactor(false);
         modelMap.addAttribute("ViewBag", viewBag);
-        modelMap.addAttribute("IndexViewModel", viewModel);
+        modelMap.addAttribute("IndexViewModel", model);
         return "manage/index";
     }
 
@@ -67,6 +78,7 @@ public class ManageController {
             viewBag.put("Title", "Change Password");
             modelMap.addAttribute("ViewBag", viewBag);
             modelMap.addAttribute("ChangePasswordViewModel", model);
+            System.out.println("ChangePasswordProcessError" + "model: " + model);
             return "manage/changePassword";
         }
         /*if (user != null) {
