@@ -1,6 +1,8 @@
 package kr.hhp227.springboot.controller;
 
+import kr.hhp227.springboot.model.ChangePasswordViewModel;
 import kr.hhp227.springboot.model.LoginViewModel;
+import kr.hhp227.springboot.model.RegisterViewModel;
 import kr.hhp227.springboot.model.User;
 import kr.hhp227.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,30 +44,35 @@ public class AccountController {
 
         viewBag.put("Title", "등록");
         modelMap.addAttribute("ViewBag", viewBag);
+        modelMap.addAttribute("RegisterViewModel", new RegisterViewModel());
         return "account/register";
     }
 
     @RequestMapping("RegisterProcess")
-    public String registerProcess(User user) {
+    public String registerProcess(
+            @Valid
+            @ModelAttribute("RegisterViewModel")
+            RegisterViewModel model,
+            BindingResult bindingResult,
+            User user
+    ) {
+        System.out.println("registerProcess: " + model);
         user.setAccountNonExpired(true);
         user.setAccountNonLocked(true);
         user.setCredentialsNonExpired(true);
         user.setEnabled(true);
         user.setAuthorities(AuthorityUtils.createAuthorityList("USER"));
+        if (!model.getPassword().equals(model.getConfirmPassword())) {
+            bindingResult.rejectValue("confirmPassword", "error.confirmPassword", "비밀번호가 일치하지 않습니다.");
+        }
+
+        if (bindingResult.hasErrors()) {
+            return "account/register";
+        }
+
+
+
         userService.registerUser(user);
-        /*User user1 = userService.getUser(user.getUsername());
-        System.out.println(user1.getUsername());
-
-        PasswordEncoder passwordEncoder = userService.getPasswordEncoder();
-        System.out.println(passwordEncoder.matches(user.getPassword(), user1.getPassword()));
-
-        Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
-        Iterator<? extends GrantedAuthority> iterator = authorities.iterator();
-        Collection<GrantedAuthority> authorities1 = (Collection<GrantedAuthority>) user1.getAuthorities();
-        while (iterator.hasNext()) {
-            GrantedAuthority authority = iterator.next();
-            System.out.println(authorities1 + "" + new SimpleGrantedAuthority((authority.getAuthority())));
-        }*/
         return "redirect:/";
     }
 

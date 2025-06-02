@@ -86,14 +86,14 @@ public class ManageController {
             System.out.println("ChangePasswordProcessError" + "model: " + model);
             return "manage/changePassword";
         }
-        /*if (user != null) {
-            boolean isSuccess = userService.changePassword(user.getUsername(), form.getOldPassword(), newPassword);
+        if (user != null) {
+            boolean isSuccess = userService.changePassword(user.getUsername(), model.getOldPassword(), model.getNewPassword());
 
             if (isSuccess) {
                 return "redirect:/Manage?Message=ChangePasswordSuccess";
             }
-        }*/
-        return "manage/changePasswordTemp1";
+        }
+        return "manage/changePassword";
     }
 
     @RequestMapping("ManageLogins")
