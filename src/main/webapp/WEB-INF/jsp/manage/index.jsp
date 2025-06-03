@@ -1,6 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="java.util.*" %>
+<%
+    request.setAttribute("ViewBag", Map.of("Title", "Manage"));
+%>
 
 <h2>${ViewBag.Title}.</h2>
 

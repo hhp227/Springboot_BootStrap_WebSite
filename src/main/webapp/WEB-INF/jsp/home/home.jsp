@@ -1,5 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>
+<%
+    request.setAttribute("ViewBag", Map.of("Title", "Home Page"));
+%>
+
 <div class="jumbotron">
     <h1>SpringBoot</h1>
     <p class="lead">SpringBoot is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>

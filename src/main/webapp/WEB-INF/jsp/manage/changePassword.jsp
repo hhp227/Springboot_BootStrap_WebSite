@@ -1,6 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.*" %>
+<%@ page import="kr.hhp227.springboot.model.ChangePasswordViewModel" %>
+<%
+    request.setAttribute("ChangePasswordViewModel", new ChangePasswordViewModel());
+    request.setAttribute("ViewBag", Map.of("Title", "Change Password"));
+%>
 
 <h2>${ViewBag.Title}.</h2>
 

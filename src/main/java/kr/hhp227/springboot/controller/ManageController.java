@@ -33,7 +33,6 @@ public class ManageController {
         String statusMessage;
         IndexViewModel model = new IndexViewModel();
 
-        viewBag.put("Title", "Manage");
         if (message != null) {
             statusMessage = message.equals("ChangePasswordSuccess") ? "Your password has been changed."
                     : message.equals("SetPasswordSuccess") ? "Your password has been set."
@@ -53,12 +52,7 @@ public class ManageController {
     }
 
     @RequestMapping("ChangePassword")
-    public String changePassword(ModelMap modelMap) {
-        Map<String, Object> viewBag = new HashMap<>();
-
-        viewBag.put("Title", "Change Password");
-        modelMap.addAttribute("ViewBag", viewBag);
-        modelMap.addAttribute("ChangePasswordViewModel", new ChangePasswordViewModel());
+    public String changePassword() {
         return "manage/changePassword";
     }
 
@@ -97,11 +91,21 @@ public class ManageController {
     }
 
     @RequestMapping("ManageLogins")
-    public String manageLogins(ModelMap modelMap) {
+    public String manageLogins(
+            @RequestParam(value = "Message", required = false)
+            String message,
+            ModelMap modelMap
+    ) {
         Map<String, String> viewBag = new HashMap<>();
+        String statusMessage;
 
-        viewBag.put("Title", "Manage your external logins");
-        viewBag.put("StatusMessage", "");
+        if (message != null) {
+            statusMessage = message.equals("RemoveLoginSuccess") ? "The external login was removed."
+                    : message.equals("Error") ? "An error has occurred."
+                    : "";
+
+            viewBag.put("StatusMessage", statusMessage);
+        }
         modelMap.addAttribute("ViewBag", viewBag);
         return "manage/manageLogins";
     }

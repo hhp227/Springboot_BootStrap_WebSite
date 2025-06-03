@@ -1,4 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.*" %>
+<%
+    request.setAttribute("ViewBag", Map.of("Title", "Manage your external logins"));
+%>
 
 <h2>${ViewBag.Title}.</h2>
 

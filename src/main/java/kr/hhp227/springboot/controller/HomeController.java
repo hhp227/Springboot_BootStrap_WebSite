@@ -16,11 +16,7 @@ public class HomeController {
     HomeMapper homeMapper;
 
     @RequestMapping("/")
-    public String home(ModelMap modelMap) {
-        Map<String, String> viewBag = new HashMap<>();
-
-        viewBag.put("Title", "Home Page");
-        modelMap.addAttribute("ViewBag", viewBag);
+    public String home() {
         return "home/home";
     }
 
@@ -28,7 +24,6 @@ public class HomeController {
     public String about(ModelMap modelMap) {
         Map<String, String> viewBag = new HashMap<>();
 
-        viewBag.put("Title", "About");
         viewBag.put("Message", "Your application description page.");
         modelMap.addAttribute("ViewBag", viewBag);
         return "home/about";
@@ -38,7 +33,6 @@ public class HomeController {
     public String contact(ModelMap modelMap) {
         Map<String, String> viewBag = new HashMap<>();
 
-        viewBag.put("Title", "Contact");
         viewBag.put("Message", "Your contact page.");
         modelMap.addAttribute("ViewBag", viewBag);
         return "home/contact";
