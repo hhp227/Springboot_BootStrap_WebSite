@@ -8,6 +8,7 @@ import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -38,7 +39,8 @@ public class AccountController {
             @ModelAttribute("RegisterViewModel")
             RegisterViewModel model,
             BindingResult bindingResult,
-            User user
+            User user,
+            ModelMap modelMap
     ) {
         System.out.println("registerProcess: " + model);
         user.setAccountNonExpired(true);
@@ -51,6 +53,7 @@ public class AccountController {
         }
 
         if (bindingResult.hasErrors()) {
+            modelMap.addAttribute("errors", bindingResult);
             return "account/register";
         }
 

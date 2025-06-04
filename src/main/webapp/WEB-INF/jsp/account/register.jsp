@@ -16,7 +16,9 @@
     <hr />
     <div class="validation-summary-errors text-danger">
         <ul>
-            <form:errors path="*" cssClass="text-danger"/> <!-- 점(<li><form:errors path="*" cssClass="text-danger" /></li>)이 빠져있음 -->
+            <c:forEach var="error" items="${errors.allErrors}">
+                <li class="text-danger">${error.defaultMessage}</li>
+            </c:forEach>
         </ul>
     </div>
     <div class="form-group">
