@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class AccountController {
@@ -42,23 +44,17 @@ public class AccountController {
             User user,
             ModelMap modelMap
     ) {
-        System.out.println("registerProcess: " + model);
         user.setAccountNonExpired(true);
         user.setAccountNonLocked(true);
         user.setCredentialsNonExpired(true);
         user.setEnabled(true);
         user.setAuthorities(AuthorityUtils.createAuthorityList("USER"));
-        if (!model.getPassword().equals(model.getConfirmPassword())) {
-            bindingResult.rejectValue("confirmPassword", "error.confirmPassword", "비밀번호가 일치하지 않습니다.");
-        }
 
         if (bindingResult.hasErrors()) {
-            modelMap.addAttribute("errors", bindingResult);
+            List<String> prioritizedMessages = extractPrioritizedErrors(model); // addErrors
+            modelMap.addAttribute("prioritizedErrors", prioritizedMessages);
             return "account/register";
         }
-
-
-
         userService.registerUser(user);
         return "redirect:/";
     }
@@ -69,5 +65,22 @@ public class AccountController {
     public String logout(HttpServletRequest request, HttpServletResponse response) {
         new SecurityContextLogoutHandler().logout(request, response, SecurityContextHolder.getContext().getAuthentication());
         return "redirect:/";
+    }
+
+    private List<String> extractPrioritizedErrors(RegisterViewModel model) {
+        List<String> messages = new ArrayList<>();
+
+        if (model.getUsername() == null || model.getUsername().isEmpty()) {
+            messages.add("사용자 이름 필드가 필요합니다.");
+        }
+        if (model.getPassword() == null || model.getPassword().isEmpty()) {
+            messages.add("암호 필드가 필요합니다.");
+        } else if (model.getPassword().length() < 6) {
+            messages.add("암호은(는) 6자 이상이어야 합니다.");
+        }
+        if (!model.getPassword().equals(model.getConfirmPassword())) {
+            messages.add("새 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+        }
+        return messages;
     }
 }

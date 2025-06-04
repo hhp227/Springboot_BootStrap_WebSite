@@ -2,6 +2,7 @@ package kr.hhp227.springboot.controller;
 
 import kr.hhp227.springboot.model.ChangePasswordViewModel;
 import kr.hhp227.springboot.model.IndexViewModel;
+import kr.hhp227.springboot.model.RegisterViewModel;
 import kr.hhp227.springboot.model.User;
 import kr.hhp227.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.Valid;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -68,16 +71,10 @@ public class ManageController {
         System.out.println("changePasswordProcess" + ", " + model.toString());
         User user = (User) userService.loadUserByUsername(principal.getName());
 
-        if (!model.getNewPassword().equals(model.getConfirmPassword())) {
-            bindingResult.rejectValue("confirmPassword", "", "새 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
-        }
         if (bindingResult.hasErrors()) {
-            Map<String, Object> viewBag = new HashMap<>();
-
-            viewBag.put("Title", "Change Password");
-            modelMap.addAttribute("ViewBag", viewBag);
+            List<String> prioritizedMessages = extractPrioritizedErrors(model); // addErrors
+            modelMap.addAttribute("prioritizedErrors", prioritizedMessages);
             modelMap.addAttribute("ChangePasswordViewModel", model);
-            System.out.println("ChangePasswordProcessError" + "model: " + model);
             return "manage/changePassword";
         }
         if (user != null) {
@@ -108,5 +105,23 @@ public class ManageController {
         }
         modelMap.addAttribute("ViewBag", viewBag);
         return "manage/manageLogins";
+    }
+
+    private List<String> extractPrioritizedErrors(ChangePasswordViewModel model) {
+        List<String> messages = new ArrayList<>();
+
+        if (model.getOldPassword() == null || model.getOldPassword().isEmpty()) {
+            messages.add("Current password 필드가 필요합니다.");
+        }
+        if (model.getNewPassword() == null || model.getNewPassword().isEmpty()) {
+            messages.add("New password 필드가 필요합니다.");
+        } else if (model.getNewPassword().length() < 6) {
+            messages.add("암호은(는) 6자 이상이어야 합니다.");
+        }
+        if (!model.getNewPassword().equals(model.getConfirmPassword())) {
+            messages.add("새 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
+        }
+        // Incorrect password. 처리
+        return messages;
     }
 }

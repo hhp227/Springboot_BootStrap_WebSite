@@ -16,8 +16,8 @@
     <hr />
     <div class="validation-summary-errors text-danger">
         <ul>
-            <c:forEach var="error" items="${errors.allErrors}">
-                <li class="text-danger">${error.defaultMessage}</li>
+            <c:forEach var="msg" items="${prioritizedErrors}">
+                <li class="text-danger">${msg}</li>
             </c:forEach>
         </ul>
     </div>
