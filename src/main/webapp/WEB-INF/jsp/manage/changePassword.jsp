@@ -4,7 +4,6 @@
 <%@ page import="java.util.*" %>
 <%@ page import="kr.hhp227.springboot.model.ChangePasswordViewModel" %>
 <%
-    request.setAttribute("ChangePasswordViewModel", new ChangePasswordViewModel());
     request.setAttribute("ViewBag", Map.of("Title", "Change Password"));
 %>
 

@@ -41,9 +41,6 @@
                 <div class="form-group">
                     <div class="col-md-offset-2 col-md-10">
                         <div class="checkbox">
-                            <!-- <input data-val="true" data-val-required="사용자 이름 및 암호 저장 필드가 필요합니다." id="RememberMe" name="rememberMe" type="checkbox" value="true" /> -->
-                            <!-- <input name="RememberMe" type="hidden" value="false" /> -->
-                            <!-- <label for="RememberMe">사용자 이름 및 암호 저장</label> -->
                             <form:checkbox path="rememberMe" />
                             <form:label path="rememberMe">사용자 이름 및 암호 저장</form:label>
                         </div>

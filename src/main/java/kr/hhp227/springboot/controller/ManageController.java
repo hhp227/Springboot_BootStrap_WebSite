@@ -2,7 +2,6 @@ package kr.hhp227.springboot.controller;
 
 import kr.hhp227.springboot.model.ChangePasswordViewModel;
 import kr.hhp227.springboot.model.IndexViewModel;
-import kr.hhp227.springboot.model.RegisterViewModel;
 import kr.hhp227.springboot.model.User;
 import kr.hhp227.springboot.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,7 +54,8 @@ public class ManageController {
     }
 
     @RequestMapping("ChangePassword")
-    public String changePassword() {
+    public String changePassword(ModelMap modelMap) {
+        modelMap.addAttribute("ChangePasswordViewModel", new ChangePasswordViewModel());
         return "manage/changePassword";
     }
 
@@ -68,9 +68,11 @@ public class ManageController {
             Principal principal,
             ModelMap modelMap
     ) {
-        System.out.println("changePasswordProcess" + ", " + model.toString());
         User user = (User) userService.loadUserByUsername(principal.getName());
 
+        if (!model.getNewPassword().equals(model.getConfirmPassword())) {
+            bindingResult.rejectValue("confirmPassword", "error.confirmPassword", "비밀번호가 일치하지 않습니다.");
+        }
         if (bindingResult.hasErrors()) {
             List<String> prioritizedMessages = extractPrioritizedErrors(model); // addErrors
             modelMap.addAttribute("prioritizedErrors", prioritizedMessages);
@@ -122,6 +124,7 @@ public class ManageController {
             messages.add("새 비밀번호와 비밀번호 확인이 일치하지 않습니다.");
         }
         // Incorrect password. 처리
+        System.out.println("TEST");
         return messages;
     }
 }
