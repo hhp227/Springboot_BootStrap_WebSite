@@ -1,5 +1,6 @@
 package kr.hhp227.springboot.controller;
 
+import kr.hhp227.springboot.model.ForgotPasswordViewModel;
 import kr.hhp227.springboot.model.RegisterViewModel;
 import kr.hhp227.springboot.model.User;
 import kr.hhp227.springboot.service.UserService;
@@ -12,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -57,6 +59,26 @@ public class AccountController {
         }
         userService.registerUser(user);
         return "redirect:/";
+    }
+
+    @GetMapping("ForgotPassword")
+    public String forgotPassword() {
+        return "account/forgotPassword";
+    }
+
+    @PostMapping("ForgotPassword")
+    public String forgotPassword(
+            @Valid
+            @ModelAttribute("ForgotPasswordViewModel")
+            ForgotPasswordViewModel model,
+            BindingResult bindingResult
+    ) {
+        return "redirect:/ForgotPasswordConfirmation";
+    }
+
+    @RequestMapping("ForgotPasswordConfirmation")
+    public String forgotPasswordConfirmation() {
+        return "account/forgotPasswordConfirmation";
     }
 
     // 임시 로그아웃
